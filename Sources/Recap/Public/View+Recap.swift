@@ -70,7 +70,7 @@ public extension View {
     }
 
     /// Configures a customizable action for the `RecapScreen` dismiss button, useful when your screen is presented through non-standard means.
-    func recapScreenDismissAction(_ dismissAction: (() -> Void)?) -> some View {
+    func recapScreenDismissAction(_ dismissAction: (@Sendable () -> Void)?) -> some View {
         if let dismissAction {
             self.environment(\.recapScreenDismissAction, RecapScreenDismissAction(dismissAction: dismissAction))
         } else {
@@ -84,13 +84,15 @@ public extension View {
 internal extension EnvironmentValues {
     // MARK: StartIndex
 
-    var recapScreenStartIndex: RecapScreenStartIndex {
+    @Entry var recapScreenStartIndex = RecapScreenStartIndex.leadingView
+
+    var recapScreenStartIndex2: RecapScreenStartIndex {
         get { self[RecapScreenStartIndexKey.self] }
         set { self[RecapScreenStartIndexKey.self] = newValue }
     }
 
     private struct RecapScreenStartIndexKey: EnvironmentKey {
-        static var defaultValue = RecapScreenStartIndex.leadingView
+        static let defaultValue = RecapScreenStartIndex.leadingView
     }
 
     // MARK: TitleStyle
@@ -101,7 +103,7 @@ internal extension EnvironmentValues {
     }
 
     private struct TitleStyleKey: EnvironmentKey {
-        static var defaultValue = AnyShapeStyle(Color.black)
+        static let defaultValue = AnyShapeStyle(Color.black)
     }
 
     // MARK: DismissButtonStyle
@@ -112,7 +114,7 @@ internal extension EnvironmentValues {
     }
 
     private struct DismissButtonStyleKey: EnvironmentKey {
-        static var defaultValue = RecapScreenDismissButtonStyle(
+        static let defaultValue = RecapScreenDismissButtonStyle(
             backgroundStyle: AnyShapeStyle(Color.blue),
             foregroundStyle: AnyShapeStyle(Color.white)
         )
@@ -126,7 +128,7 @@ internal extension EnvironmentValues {
     }
 
     private struct RecapScreenDismissActionKey: EnvironmentKey {
-        static var defaultValue: RecapScreenDismissAction?
+        static let defaultValue: RecapScreenDismissAction? = nil
     }
 
     // MARK: SelectedPageIndicatorColor
@@ -137,7 +139,7 @@ internal extension EnvironmentValues {
     }
 
     private struct SelectedPageIndicatorColorKey: EnvironmentKey {
-        static var defaultValue = Color.black
+        static let defaultValue = Color.black
     }
 
     // MARK: DeselectedPageIndicatorColor
@@ -148,7 +150,7 @@ internal extension EnvironmentValues {
     }
 
     private struct DeselectedPageIndicatorColorKey: EnvironmentKey {
-        static var defaultValue = Color.gray
+        static let defaultValue = Color.gray
     }
 
     // MARK: IconFillMode
@@ -159,7 +161,7 @@ internal extension EnvironmentValues {
     }
 
     private struct IconFillModeKey: EnvironmentKey {
-        static var defaultValue = IconFillMode.solid
+        static let defaultValue = IconFillMode.solid
     }
 
     // MARK: PaddingKey
@@ -170,7 +172,7 @@ internal extension EnvironmentValues {
     }
 
     private struct PaddingKey: EnvironmentKey {
-        static var defaultValue = EdgeInsets(top: 48.0, leading: 32.0, bottom: 24.0, trailing: 32.0)
+        static let defaultValue = EdgeInsets(top: 48.0, leading: 32.0, bottom: 24.0, trailing: 32.0)
     }
 
     // MARK: ItemSpacing
@@ -181,7 +183,7 @@ internal extension EnvironmentValues {
     }
 
     private struct ItemSpacingKey: EnvironmentKey {
-        static var defaultValue = 32.0
+        static let defaultValue = 32.0
     }
 
     // MARK: HeaderSpacing
@@ -192,6 +194,6 @@ internal extension EnvironmentValues {
     }
 
     private struct HeaderSpacingKey: EnvironmentKey {
-        static var defaultValue = 32.0
+        static let defaultValue = 32.0
     }
 }

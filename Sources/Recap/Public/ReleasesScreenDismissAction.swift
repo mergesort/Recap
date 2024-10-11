@@ -1,12 +1,12 @@
 /// A customizable action for the `RecapScreen` dismiss button, useful when your screen is presented through non-standard means.
-public struct RecapScreenDismissAction {
+public struct RecapScreenDismissAction: Sendable {
     /// The closure that defines the dismiss action.
-    public let dismissAction: (() -> Void)
+    public let dismissAction: (@Sendable  () -> Void)
 
     /// Initializes a new `RecapScreenDismissAction` with a custom dismiss action.
     ///
     /// - Parameter dismissAction: A closure that will be executed when the dismiss action is triggered.
-    public init(dismissAction: @escaping (() -> Void)) {
+    public init(dismissAction: @escaping (@Sendable () -> Void)) {
         self.dismissAction = dismissAction
     }
 
