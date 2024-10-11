@@ -1,7 +1,7 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "RELEASES.SCREEN.DISMISS.BUTTON.TITLE" : {
+    "RECAP.SCREEN.DISMISS.BUTTON.TITLE" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
