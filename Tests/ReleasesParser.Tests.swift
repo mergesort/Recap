@@ -1,8 +1,10 @@
-import XCTest
+import Testing
 @testable import Recap
 
-final class ReleasesParserTests: XCTestCase {
-    func testParsingValidMarkdown() {
+@Suite("ReleasesParser Tests")
+struct ReleasesParserTests {
+    @Test("Parsing Valid Markdown")
+    func parsingValidMarkdown() {
         let markdown = """
         # 1.0.0
         ## Initial Release
@@ -22,24 +24,25 @@ final class ReleasesParserTests: XCTestCase {
         let parser = ReleasesParser(markdown: markdown)
         let releases = parser.releases
 
-        XCTAssertEqual(releases.count, 1)
-        XCTAssertEqual(releases[0].version.string, "1.0.0")
-        XCTAssertEqual(releases[0].title, "Initial Release")
-        XCTAssertEqual(releases[0].version.change, .major)
-        XCTAssertEqual(releases[0].features.count, 2)
+        #expect(releases.count == 1)
+        #expect(releases[0].version.string == "1.0.0")
+        #expect(releases[0].title == "Initial Release")
+        #expect(releases[0].version.change == .major)
+        #expect(releases[0].features.count == 2)
 
-        XCTAssertEqual(releases[0].features[0].title, "New Feature")
-        XCTAssertEqual(releases[0].features[0].description, "This is a new feature")
-        XCTAssertEqual(releases[0].features[0].symbolName, "star")
-        XCTAssertEqual(releases[0].features[0].hexColor, "#FF0000")
+        #expect(releases[0].features[0].title == "New Feature")
+        #expect(releases[0].features[0].description == "This is a new feature")
+        #expect(releases[0].features[0].symbolName == "star")
+        #expect(releases[0].features[0].hexColor == "#FF0000")
 
-        XCTAssertEqual(releases[0].features[1].title, "Another Feature")
-        XCTAssertEqual(releases[0].features[1].description, "This is another feature")
-        XCTAssertEqual(releases[0].features[1].symbolName, "cloud")
-        XCTAssertEqual(releases[0].features[1].hexColor, "#00FF00")
+        #expect(releases[0].features[1].title == "Another Feature")
+        #expect(releases[0].features[1].description == "This is another feature")
+        #expect(releases[0].features[1].symbolName == "cloud")
+        #expect(releases[0].features[1].hexColor == "#00FF00")
     }
 
-    func testParsingMultipleReleases() {
+    @Test("Parsing Multiple Releases")
+    func parsingMultipleReleases() {
         let markdown = """
         # 2.0.0
         ## Major Update
@@ -63,12 +66,13 @@ final class ReleasesParserTests: XCTestCase {
         let parser = ReleasesParser(markdown: markdown)
         let releases = parser.releases
 
-        XCTAssertEqual(releases.count, 2)
-        XCTAssertEqual(releases[0].version.string, "1.1.0")
-        XCTAssertEqual(releases[1].version.string, "2.0.0")
+        #expect(releases.count == 2)
+        #expect(releases[0].version.string == "1.1.0")
+        #expect(releases[1].version.string == "2.0.0")
     }
 
-    func testParsingWithMissingOptionalFields() {
+    @Test("Parsing With Missing Optional Fields")
+    func parsingWithMissingOptionalFields() {
         let markdown = """
         # 1.0.0
         ## Initial Release
@@ -81,12 +85,13 @@ final class ReleasesParserTests: XCTestCase {
         let parser = ReleasesParser(markdown: markdown)
         let releases = parser.releases
 
-        XCTAssertEqual(releases.count, 1)
-        XCTAssertEqual(releases[0].features[0].symbolName, "heart")
-        XCTAssertEqual(releases[0].features[0].hexColor, "#000000")
+        #expect(releases.count == 1)
+        #expect(releases[0].features[0].symbolName == "heart")
+        #expect(releases[0].features[0].hexColor == "#000000")
     }
 
-    func testParsingWithEscapeSequences() {
+    @Test("Parsing With Escape Sequences")
+    func parsingWithEscapeSequences() {
         let markdown = """
         # 1.0.0
         ## Test Release
@@ -99,16 +104,16 @@ final class ReleasesParserTests: XCTestCase {
         let parser = ReleasesParser(markdown: markdown)
         let releases = parser.releases
 
-        XCTAssertEqual(releases[0].features[0].description, "This feature has a \n newline and a \\ backslash")
+        #expect(releases[0].features[0].description == "This feature has a \n newline and a \\ backslash")
     }
 
+    @Test("Parse Empty Markdown")
     func testParseEmptyMarkdown() {
         let markdown = ""
 
         let parser = ReleasesParser(markdown: markdown)
         let releases = parser.releases
 
-        XCTAssertTrue(releases.isEmpty)
+        #expect(releases.isEmpty)
     }
 }
-

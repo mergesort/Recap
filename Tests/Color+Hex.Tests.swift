@@ -1,50 +1,60 @@
-import XCTest
+import Testing
 import SwiftUI
 @testable import Recap
 
-final class ColorHexTests: XCTestCase {
-    func testThreeDigitHex() {
+@Suite("Color Hex Tests")
+struct ColorHexTests {
+    @Test("Three Digit Hex")
+    func validateThreeDigitHexValues() {
         let color = Color(hex: "#F00")
-        XCTAssertEqual(color.hex, "#FF0000FF")
+        #expect(color.hex == "#FF0000FF")
     }
     
-    func testFourDigitHex() {
+    @Test("Four Digit Hex")
+    func validateFourDigitHexValues() {
         let color = Color(hex: "#F00F")
-        XCTAssertEqual(color.hex, "#FF0000FF")
+        #expect(color.hex == "#FF0000FF")
     }
     
-    func testSixDigitHex() {
+    @Test("Six Digit Hex")
+    func validateSixDigitHexValues() {
         let color = Color(hex: "#00FF00")
-        XCTAssertEqual(color.hex, "#00FF00FF")
+        #expect(color.hex == "#00FF00FF")
     }
     
-    func testEightDigitHex() {
+    @Test("Eight Digit Hex")
+    func validateEightDigitHexValues() {
         let color = Color(hex: "#0000FF80")
-        XCTAssertEqual(color.hex, "#0000FF80")
+        #expect(color.hex == "#0000FF80")
     }
     
-    func testHexWithoutHash() {
+    @Test("Hex Without Hash")
+    func validatetHexValuesWithoutHash() {
         let color = Color(hex: "FF0000")
-        XCTAssertEqual(color.hex, "#FF0000FF")
+        #expect(color.hex == "#FF0000FF")
     }
     
-    func testInvalidHex() {
+    @Test("Invalid Hex")
+    func validateInvalidHexValues() {
         let color = Color(hex: "INVALID")
-        XCTAssertEqual(color.hex, "#FFFFFFFF")
+        #expect(color.hex == "#FFFFFFFF")
     }
     
-    func testEmptyString() {
+    @Test("Empty String")
+    func validateEmptyString() {
         let color = Color(hex: "")
-        XCTAssertEqual(color.hex, "#FFFFFFFF")
+        #expect(color.hex == "#FFFFFFFF")
     }
     
-    func testLowercaseHex() {
+    @Test("Lowercase Hex")
+    func validateLowercaseHexValues() {
         let color = Color(hex: "#00ff00")
-        XCTAssertEqual(color.hex, "#00FF00FF")
+        #expect(color.hex == "#00FF00FF")
     }
     
-    func testMixedCaseHex() {
+    @Test("Mixed Case Hex")
+    func validateMixedDigitHexValues() {
         let color = Color(hex: "#00Ff00")
-        XCTAssertEqual(color.hex, "#00FF00FF")
+        #expect(color.hex == "#00FF00FF")
     }
 }
