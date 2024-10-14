@@ -6,8 +6,8 @@ struct FeatureRow: View {
     let feature: Feature
 
     var body: some View {
-        HStack(alignment: .center, spacing: 16.0) {
-            ZStack(alignment: .center) {
+        HStack(alignment: feature.hAlignment, spacing: 16.0) {
+            ZStack(alignment: feature.zAlignment) {
                 Color.clear
                     .frame(width: 48.0, height: 48.0)
 

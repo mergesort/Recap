@@ -53,7 +53,7 @@ private extension ReleasesParser {
         var releases: [Release] = []
         var currentFeatures: [Feature] = []
         var currentRelease: (version: String, title: String, type: String)?
-        var currentFeature: (title: String, description: String, symbol: String?, color: String?)?
+        var currentFeature: (title: String, description: String, symbol: String?, color: String?, alignment: String?)?
 
         for line in lines {
             let trimmedLine = line.trimmingCharacters(in: .whitespaces)
@@ -68,13 +68,15 @@ private extension ReleasesParser {
                 currentRelease?.type = changeType
             } else if let title = self.parseTitle(trimmedLine) {
                 self.finalizeFeature(&currentFeatures, &currentFeature)
-                currentFeature = (Self.parseEscapeSequences(title), "", nil, nil)
+                currentFeature = (Self.parseEscapeSequences(title), "", nil, nil, nil)
             } else if let description = self.parseDescription(trimmedLine) {
                 currentFeature?.description = Self.parseEscapeSequences(description)
             } else if let symbolName = self.parseSymbol(trimmedLine) {
                 currentFeature?.symbol = symbolName
             } else if let color = self.parseColor(trimmedLine) {
                 currentFeature?.color = color
+            } else if let alignment = self.parseAlignment(trimmedLine) {
+                currentFeature?.alignment = alignment
             }
         }
 
@@ -111,7 +113,11 @@ private extension ReleasesParser {
     func parseColor(_ line: String) -> String? {
         self.parseToken(line, token: "- color: ")
     }
-
+    
+    func parseAlignment(_ line: String) -> String? {
+        self.parseToken(line, token: "- alignment: ")
+    }
+    
     func parseToken(_ line: String, token: String) -> String? {
         if line.starts(with: token) {
             return String(line.dropFirst(token.count))
@@ -120,14 +126,15 @@ private extension ReleasesParser {
         }
     }
 
-    private func finalizeFeature(_ features: inout [Feature], _ currentFeature: inout (title: String, description: String, symbol: String?, color: String?)?) {
+    private func finalizeFeature(_ features: inout [Feature], _ currentFeature: inout (title: String, description: String, symbol: String?, color: String?, alignment: String?)?) {
         if let feature = currentFeature {
             features.append(
                 Feature(
                     title: feature.title,
                     description: feature.description,
                     symbolName: feature.symbol ?? "heart",
-                    hexColor: feature.color ?? "#000000"
+                    hexColor: feature.color ?? "#000000",
+                    alignment: feature.alignment ?? "center"
                 )
             )
             currentFeature = nil
