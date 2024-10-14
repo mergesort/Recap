@@ -46,6 +46,7 @@ Your releases are defined in a simple markdown file, with a very simple spec:
 - description: [String] (Feature Description)
 - symbol: [String] (SF Symbol Identifier)
 - color: [String] (Hex Color Code)
+- alignment [String - optional] (Specified alignment of image to text, can be top, center, bottom defaults to center) 
 ```
 
 Example Releases file:
