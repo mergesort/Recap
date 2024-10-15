@@ -45,10 +45,12 @@ Your releases are defined in a simple markdown file, with a very simple spec:
 - title: [String] (Feature Title)
 - description: [String] (Feature Description)
 - symbol: [String] (SF Symbol Identifier)
-- color: [String] (Hex Color Code)
+- color: [String] (Hex Color Code or a System Color Name)
 ```
 
-Example Releases file:
+For a full list of supported System Color Names, see `Sources/Recap/Internal/ColorName.swift`.
+
+#### Example Releases file
 
 ```markdown
 # 1.1
@@ -58,17 +60,17 @@ Example Releases file:
 - title: Super Cool Feature #1
 - description: You won't believe how this works
 - symbol: sparkles
-- color: #8E44AD
+- color: cyan
 
 - title: Super Cool Feature #2
 - description: You will believe how this one works though
 - symbol: text.magnifyingglass
-- color: #4895EF
+- color: blue
 
 - title: Super Cool Feature #3
 - description: This feature is for the nerds in the house
 - symbol: apple.terminal.on.rectangle
-- color: #F72585
+- color: orange
 
 # 1.0.1
 ## Bug Fixes! 🐛

@@ -33,12 +33,12 @@ struct ReleasesParserTests {
         #expect(releases[0].features[0].title == "New Feature")
         #expect(releases[0].features[0].description == "This is a new feature")
         #expect(releases[0].features[0].symbolName == "star")
-        #expect(releases[0].features[0].hexColor == "#FF0000")
+        #expect(releases[0].features[0].colorDescription == "#FF0000")
 
         #expect(releases[0].features[1].title == "Another Feature")
         #expect(releases[0].features[1].description == "This is another feature")
         #expect(releases[0].features[1].symbolName == "cloud")
-        #expect(releases[0].features[1].hexColor == "#00FF00")
+        #expect(releases[0].features[1].colorDescription == "#00FF00")
     }
 
     @Test("Parsing Multiple Releases")
@@ -87,7 +87,7 @@ struct ReleasesParserTests {
 
         #expect(releases.count == 1)
         #expect(releases[0].features[0].symbolName == "heart")
-        #expect(releases[0].features[0].hexColor == "#000000")
+        #expect(releases[0].features[0].colorDescription == "#000000")
     }
 
     @Test("Parsing With Escape Sequences")
