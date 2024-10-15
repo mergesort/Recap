@@ -19,9 +19,12 @@ public struct Feature: Identifiable, Equatable {
 
 internal extension Feature {
     var color: Color {
-        if self.colorDescription.hasPrefix("#") {
-            return Color(hex: self.colorDescription)
-        } else if let color = ColorName(rawValue: self.colorDescription.trimmingCharacters(in: .whitespaces).lowercased())?.asColor() {
+        let sanitizedColor = self.colorDescription
+            .trimmingCharacters(in: .whitespaces)
+            .lowercased()
+        if sanitizedColor.hasPrefix("#") {
+            return Color(hex: sanitizedColor)
+        } else if let color = ColorName(rawValue: sanitizedColor)?.asColor() {
             return color
         } else {
             return .white
