@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// A string-convertible representation of a system color.
-enum ColorName: String, Codable, CaseIterable, Sendable {
+enum ColorName: String, CaseIterable, Sendable {
     case black
     case blue
     case brown
