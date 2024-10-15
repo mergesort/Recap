@@ -151,17 +151,17 @@ Recap bundles a useful utility for choosing when to display the What's New Scree
 
 ```swift
 var shouldDisplayRecapScreen: Bool {
-    let currentVersionNumberString = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
-    let previousVersionNumberString = "1.0.0" // You should decide the best way to store the user's last launched version number, UserDefaults is a useful option.
-	
+    let currentVersionString = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+    let previousVersionString = "1.0.0" // You should decide the best way to store the user's last launched version number, UserDefaults is a useful option.
+
     guard let currentVersionString else { return false }
     guard let previousVersionString else { return false }
 
-	let currentVersion = SemanticVersion(version: currentVersionString)
-	let previousVersion = SemanticVersion(version: previousVersionString)
+    let currentVersion = SemanticVersion(version: currentVersionString)
+    let previousVersion = SemanticVersion(version: previousVersionString)
 
     // Show screen if major or minor version has increased
-	return currentVersion.major > previousVersion.major || currentVersion.minor > previousVersion.minor
+    return currentVersion.major > previousVersion.major || currentVersion.minor > previousVersion.minor
 }
 ```
 
