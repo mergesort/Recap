@@ -45,43 +45,49 @@ public struct RecapScreen<LeadingView: View, TrailingView: View>: View {
 
     public var body: some View {
         NavigationStack {
-            TabView(selection: $selectedIndex) {
-                self.leadingView
-                    .tag(self.tabIndex(from: .leadingView))
+            VStack(spacing: 0.0) {
+                TabView(selection: $selectedIndex) {
+                    self.leadingView
+                        .tag(self.tabIndex(from: .leadingView))
 
-                ForEach(self.displayedReleases) { release in
-                    ReleaseView(release: release)
-                        .padding(.bottom, 32.0)
-                        .tag((self.tabIndex(from: .release(
-                            self.displayedReleases.firstIndex(of: release) ?? 0)
-                        )))
+                    ForEach(self.displayedReleases) { release in
+                        ReleaseView(release: release)
+                            .padding(.bottom, 32.0)
+                            .tag((self.tabIndex(from: .release(
+                                self.displayedReleases.firstIndex(of: release) ?? 0)
+                            )))
+                    }
+
+                    self.trailingView
+                        .tag(self.tabIndex(from: .trailingView))
                 }
+                .tabViewStyle(.page(indexDisplayMode: self.releases.count > 1 ? .always : .never))
+                .background(self.derivedBackgroundStyle)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar(.hidden, for: .navigationBar)
 
-                self.trailingView
-                    .tag(self.tabIndex(from: .trailingView))
-            }
-            .tabViewStyle(.page(indexDisplayMode: self.releases.count > 1 ? .always : .never))
-            .background(self.derivedBackgroundStyle)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(.hidden, for: .navigationBar)
-            .toolbar {
-                ToolbarItem(placement: .bottomBar) {
-                    Button(action: {
-                        dismissAction?() ?? dismiss()
-                    }, label: {
+                Button(action: {
+                    dismissAction?() ?? dismiss()
+                }, label: {
+                    HStack {
+                        Spacer(minLength: 0.0)
                         Text("RECAP.SCREEN.DISMISS.BUTTON.TITLE", bundle: .module)
                             .font(.system(.title3, weight: .bold))
                             .padding(8.0)
                             .padding(.vertical, 4.0)
                             .padding(.horizontal, 16.0)
                             .foregroundStyle(dismissButtonStyle.foregroundStyle)
-                    })
-                    .frame(maxWidth: .infinity)
-                    .background(self.dismissButtonStyle.backgroundStyle)
-                    .clipShape(.rect(cornerRadius: 16.0))
-                    .padding(.horizontal, 20.0)
-                    .foregroundStyle(.primary)
-                }
+                        Spacer(minLength: 0.0)
+                    }
+                    .contentShape(.rect(cornerRadius: 16.0))
+                    .frame(height: 54.0)
+                })
+                .frame(maxWidth: .infinity)
+                .background(self.dismissButtonStyle.backgroundStyle)
+                .clipShape(.rect(cornerRadius: 16.0))
+                .padding(.horizontal, 40.0)
+                .foregroundStyle(.primary)
+                .withBottomPaddingIfNoSafeArea()
             }
             .onAppear(perform: {
                 self.selectedIndex = self.tabIndex(from: self.startIndex)
@@ -93,6 +99,21 @@ public struct RecapScreen<LeadingView: View, TrailingView: View>: View {
                 self.teardownAppearanceChanges()
             })
         }
+    }
+}
+
+private extension View {
+    var hasSafeAreaForBottomPadding: Bool {
+        #if os(macOS)
+        return false
+        #else
+        return (UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0.0) > 0.0
+        #endif
+    }
+
+    func withBottomPaddingIfNoSafeArea() -> some View {
+        guard !hasSafeAreaForBottomPadding else { return self }
+        return self.padding(.bottom, 20.0)
     }
 }
 
