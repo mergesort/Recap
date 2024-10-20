@@ -107,7 +107,12 @@ private extension View {
         #if os(macOS)
         return false
         #else
-        return (UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0.0) > 0.0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            // On iPad, we don't display fullscreen so the home bar isn't relevant.
+            return false
+        } else {
+            return (UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0.0) > 0.0
+        }
         #endif
     }
 
