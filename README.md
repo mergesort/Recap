@@ -99,18 +99,19 @@ Recap provides various modifiers to tailor the Releases screen to your app's vis
 
 ```swift
 // Available customization modifiers
-func recapStartIndex(_ startIndex: RecapScreenStartIndex) -> some View
-func recapTitleStyle(_ style: some ShapeStyle) -> some View
-func recapDismissButtonStyle(_ style: some ShapeStyle) -> some View
-func recapDismissButtonStyle(_ backgroundStyle: some ShapeStyle, _ foregroundStyle: some ShapeStyle) -> some View
-func recapIconFillMode(_ style: IconFillMode) -> some View
-func recapPageIndicatorColors(selected: Color, deselected: Color) -> some View
-func recapBackground(_ style: AnyShapeStyle?) -> some View
-func recapBackground(_ color: Color) -> some View
-func recapPadding(_ insets: EdgeInsets) -> some View
-func recapHeaderSpacing(_ spacing: CGFloat) -> some View
-func recapItemSpacing(_ spacing: CGFloat) -> some View
-func recapDismissAction(_ dismissAction: (() -> Void)?) -> some View
+func recapScreenStartIndex(_ startIndex: RecapScreenStartIndex) -> some View
+func recapScreenTitleStyle(_ style: some ShapeStyle) -> some View
+func recapScreenDismissButtonStyle(_ style: some ShapeStyle) -> some View
+func recapScreenDismissButtonStyle(_ backgroundStyle: some ShapeStyle, _ foregroundStyle: some ShapeStyle) -> some View
+func recapScreenIconFillMode(_ style: IconFillMode) -> some View
+func recapScreenIconAlignment(_ alignment: VerticalAlignment) -> some View
+func recapScreenPageIndicatorColors(selected: Color, deselected: Color) -> some View
+func recapScreenBackground(_ style: AnyShapeStyle?) -> some View
+func recapScreenBackground(_ color: Color) -> some View
+func recapScreenPadding(_ insets: EdgeInsets) -> some View
+func recapScreenHeaderSpacing(_ spacing: CGFloat) -> some View
+func recapScreenItemSpacing(_ spacing: CGFloat) -> some View
+func recapScreenDismissAction(_ dismissAction: (() -> Void)?) -> some View
 ```
 
 Example usage:
