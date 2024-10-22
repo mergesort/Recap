@@ -27,9 +27,22 @@ struct ReleaseView: View {
                 .padding(.leading, self.padding.leading)
                 .padding(.trailing, self.padding.trailing)
             }
-            .scrollBounceBehavior(.basedOnSize)
+            .withSizedBasedBounceBehaviorIfAvailable()
         }
         .padding(.top, self.padding.top)
         .padding(.bottom, self.padding.bottom)
+    }
+}
+
+// MARK: ScrollView
+
+fileprivate extension ScrollView {
+    func withSizedBasedBounceBehaviorIfAvailable() -> some View {
+        guard #available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *) else {
+            return self
+        }
+
+        return self
+            .scrollBounceBehavior(.basedOnSize)
     }
 }
