@@ -78,8 +78,6 @@
 			);
 			name = Demo;
 			packageProductDependencies = (
-				B7B07A812CACB7CB0020A352 /* Rerelease */,
-				B7B07A952CB099200020A352 /* Rerelease */,
 				B70533132CB6397F008FF9FB /* Recap */,
 			);
 			productName = Demo;
@@ -363,14 +361,6 @@
 		B70533132CB6397F008FF9FB /* Recap */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Recap;
-		};
-		B7B07A812CACB7CB0020A352 /* Rerelease */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Rerelease;
-		};
-		B7B07A952CB099200020A352 /* Rerelease */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Rerelease;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
