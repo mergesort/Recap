@@ -7,27 +7,24 @@ public struct Feature: Identifiable, Equatable {
     public let title: String
     public let description: String
     public let symbolName: String
-    public let colorDescription: String
+    public let colorRepresentation: String
 
-    public init(title: String, description: String, symbolName: String, colorDescription: String) {
+    public init(title: String, description: String, symbolName: String, colorRepresentation: String) {
         self.title = title
         self.description = description
         self.symbolName = symbolName
-        self.colorDescription = colorDescription
+        self.colorRepresentation = colorRepresentation
     }
 }
 
 internal extension Feature {
     var color: Color {
-        let sanitizedColor = self.colorDescription
-            .trimmingCharacters(in: .whitespaces)
-            .lowercased()
-        if sanitizedColor.hasPrefix("#") {
-            return Color(hex: sanitizedColor)
-        } else if let color = ColorName(rawValue: sanitizedColor)?.asColor() {
+        if self.colorRepresentation.hasPrefix("#") {
+            return Color(hex: self.colorRepresentation)
+        } else if let color = Color(systemName: self.colorRepresentation) {
             return color
         } else {
-            return .white
+            return .black
         }
     }
 }

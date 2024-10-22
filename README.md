@@ -45,10 +45,11 @@ Your releases are defined in a simple markdown file, with a very simple spec:
 - title: [String] (Feature Title)
 - description: [String] (Feature Description)
 - symbol: [String] (SF Symbol Identifier)
-- color: [String] (Hex Color Code or a System Color Name)
+- color: [String] (Hex Color Code or System Color Name)
 ```
 
-For a full list of supported System Color Names, see `Sources/Recap/Internal/ColorName.swift`.
+> [!NOTE]
+> For a full list of supported System Color Names, see `Sources/Recap/Internal/Color+SystemNames.swift`.
 
 #### Example Releases file
 
