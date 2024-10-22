@@ -44,51 +44,49 @@ public struct RecapScreen<LeadingView: View, TrailingView: View>: View {
     }
 
     public var body: some View {
-        NavigationStack {
-            VStack(spacing: 0.0) {
-                TabView(selection: $selectedIndex) {
-                    self.leadingView
-                        .tag(self.tabIndex(from: .leadingView))
+        VStack(spacing: 0.0) {
+            TabView(selection: $selectedIndex) {
+                self.leadingView
+                    .tag(self.tabIndex(from: .leadingView))
 
-                    ForEach(self.displayedReleases) { release in
-                        ReleaseView(release: release)
-                            .padding(.bottom, 32.0)
-                            .tag((self.tabIndex(from: .release(
-                                self.displayedReleases.firstIndex(of: release) ?? 0)
-                            )))
-                    }
-
-                    self.trailingView
-                        .tag(self.tabIndex(from: .trailingView))
+                ForEach(self.displayedReleases) { release in
+                    ReleaseView(release: release)
+                        .padding(.bottom, 32.0)
+                        .tag((self.tabIndex(from: .release(
+                            self.displayedReleases.firstIndex(of: release) ?? 0)
+                        )))
                 }
-                .tabViewStyle(.page(indexDisplayMode: self.releases.count > 1 ? .always : .never))
-                .background(self.derivedBackgroundStyle)
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar(.hidden, for: .navigationBar)
 
-                Button(action: {
-                    dismissAction?() ?? dismiss()
-                }, label: {
-                    HStack {
-                        Spacer(minLength: 0.0)
-                        Text("RECAP.SCREEN.DISMISS.BUTTON.TITLE", bundle: .module)
-                            .font(.system(.title3, weight: .bold))
-                            .padding(8.0)
-                            .padding(.vertical, 4.0)
-                            .padding(.horizontal, 16.0)
-                            .foregroundStyle(dismissButtonStyle.foregroundStyle)
-                        Spacer(minLength: 0.0)
-                    }
-                    .contentShape(.rect(cornerRadius: 16.0))
-                    .frame(height: 54.0)
-                })
-                .frame(maxWidth: .infinity)
-                .background(self.dismissButtonStyle.backgroundStyle)
-                .clipShape(.rect(cornerRadius: 16.0))
-                .padding(.horizontal, 40.0)
-                .foregroundStyle(.primary)
-                .withBottomPaddingIfNoSafeArea()
+                self.trailingView
+                    .tag(self.tabIndex(from: .trailingView))
             }
+            .tabViewStyle(.page(indexDisplayMode: self.releases.count > 1 ? .always : .never))
+            .background(self.derivedBackgroundStyle)
+
+            Button(action: {
+                dismissAction?() ?? dismiss()
+            }, label: {
+                HStack {
+                    Spacer(minLength: 0.0)
+
+                    Text("RECAP.SCREEN.DISMISS.BUTTON.TITLE", bundle: .module)
+                        .font(.system(.title3, weight: .bold))
+                        .padding(8.0)
+                        .padding(.vertical, 4.0)
+                        .padding(.horizontal, 16.0)
+                        .foregroundStyle(dismissButtonStyle.foregroundStyle)
+
+                    Spacer(minLength: 0.0)
+                }
+                .contentShape(.rect(cornerRadius: 16.0))
+            })
+            .frame(maxWidth: .infinity)
+            .background(self.dismissButtonStyle.backgroundStyle)
+            .clipShape(.rect(cornerRadius: 16.0))
+            .padding(.horizontal, 40.0)
+            .foregroundStyle(.primary)
+            .withBottomPaddingIfNoSafeArea()
+            .background(self.derivedBackgroundStyle)
             .onAppear(perform: {
                 self.selectedIndex = self.tabIndex(from: self.startIndex)
             })
@@ -102,25 +100,33 @@ public struct RecapScreen<LeadingView: View, TrailingView: View>: View {
     }
 }
 
-private extension View {
-    var hasSafeAreaForBottomPadding: Bool {
-        #if os(macOS)
-        return false
-        #else
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            // On iPad, we don't display fullscreen so the home bar isn't relevant.
-            return false
-        } else {
-            return (UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0.0) > 0.0
-        }
-        #endif
-    }
+// MARK: Convenience Initializers
 
-    func withBottomPaddingIfNoSafeArea() -> some View {
-        guard !hasSafeAreaForBottomPadding else { return self }
-        return self.padding(.bottom, 20.0)
+public extension RecapScreen where LeadingView == EmptyView {
+    init(releases: [Release], @ViewBuilder trailingView: () -> TrailingView) {
+        self.releases = releases
+        self.leadingView = EmptyView()
+        self.trailingView = trailingView()
     }
 }
+
+public extension RecapScreen where TrailingView == EmptyView {
+    init(releases: [Release], @ViewBuilder leadingView: () -> LeadingView) {
+        self.releases = releases
+        self.leadingView = leadingView()
+        self.trailingView = EmptyView()
+    }
+}
+
+public extension RecapScreen where LeadingView == EmptyView, TrailingView == EmptyView {
+    init(releases: [Release]) {
+        self.releases = releases
+        self.leadingView = EmptyView()
+        self.trailingView = EmptyView()
+    }
+}
+
+// MARK: Private
 
 private extension RecapScreen {
     var displayedReleases: [Release] {
@@ -162,28 +168,24 @@ private extension RecapScreen {
     }
 }
 
-// MARK: Convenience Initializers
+// MARK: Safe Area Insets
 
-public extension RecapScreen where LeadingView == EmptyView {
-    init(releases: [Release], @ViewBuilder trailingView: () -> TrailingView) {
-        self.releases = releases
-        self.leadingView = EmptyView()
-        self.trailingView = trailingView()
+private extension View {
+    var hasSafeAreaForBottomPadding: Bool {
+#if os(macOS)
+        return false
+#else
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            // On iPad, we don't display fullscreen so the home bar isn't relevant.
+            return false
+        } else {
+            return (UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0.0) > 0.0
+        }
+#endif
     }
-}
 
-public extension RecapScreen where TrailingView == EmptyView {
-    init(releases: [Release], @ViewBuilder leadingView: () -> LeadingView) {
-        self.releases = releases
-        self.leadingView = leadingView()
-        self.trailingView = EmptyView()
-    }
-}
-
-public extension RecapScreen where LeadingView == EmptyView, TrailingView == EmptyView {
-    init(releases: [Release]) {
-        self.releases = releases
-        self.leadingView = EmptyView()
-        self.trailingView = EmptyView()
+    func withBottomPaddingIfNoSafeArea() -> some View {
+        guard !hasSafeAreaForBottomPadding else { return self }
+        return self.padding(.bottom, 24.0)
     }
 }
