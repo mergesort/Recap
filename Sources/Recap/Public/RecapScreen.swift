@@ -179,7 +179,10 @@ private extension View {
             // On iPad, we don't display fullscreen so the home bar isn't relevant.
             return false
         } else {
-            return (UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0.0) > 0.0
+            let windowScenes = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene })
+            let mainScene = windowScenes.first(where: { $0.screen == .main })
+            let mainWindow = (mainScene?.keyWindow ?? mainScene?.windows.first)
+            return (mainWindow?.safeAreaInsets.bottom ?? 0.0) > 0.0
         }
 #endif
     }
