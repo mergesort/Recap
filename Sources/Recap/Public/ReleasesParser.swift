@@ -127,7 +127,7 @@ private extension ReleasesParser {
                     title: feature.title,
                     description: feature.description,
                     symbolName: feature.symbol ?? "heart",
-                    hexColor: feature.color ?? "#000000"
+                    colorRepresentation: feature.color ?? "#000000"
                 )
             )
             currentFeature = nil

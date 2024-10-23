@@ -29,17 +29,17 @@
 - title: Links You’ll Love: A New…sletter
 - description: Three thought-provoking, heartwarming, and enjoyable articles to read. Curated by me (Joe), with a few funny posts thrown in at the end.\n\n[Sign up today!](plinky:///open/newsletter)
 - symbol: newspaper
-- color: #F72585
+- color: pink
 
 - title: Reader Mode
 - description: Open links in Safari's Reader Mode when you tap a link, without leaving the app. Less clutter, better reading, with no distractions.
 - symbol: doc.append
-- color: #4895EF
+- color: blue
 
 - title: Fixing All The Bugs
 - description: I've fixed a bunch of bugs in Plinky 2.1, but to highlight one:\n\nIf you ever ran into an issue where you can't unselect a selected tag, I have good news, you now can! Thank you to everyone who reported the bug and helped me fix it!
 - symbol: ladybug.circle
-- color: #8E44AD
+- color: purple
 
 # 2.0
 ## Plinky 2.0 
