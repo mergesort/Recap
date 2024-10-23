@@ -169,7 +169,7 @@ internal extension EnvironmentValues {
         static let defaultValue = IconFillMode.solid
     }
 
-    // MARK: IconVerticalAlignment
+    // MARK: IconAlignment
 
     var recapScreenIconAlignment: VerticalAlignment {
         get { self[IconAlignmentKey.self] }

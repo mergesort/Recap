@@ -184,8 +184,12 @@ private extension View {
 #endif
     }
 
+    @ViewBuilder
     func withBottomPaddingIfNoSafeArea() -> some View {
-        guard !hasSafeAreaForBottomPadding else { return self }
-        return self.padding(.bottom, 24.0)
+        if hasSafeAreaForBottomPadding {
+            self
+        } else {
+            self.padding(.bottom, 24.0)
+        }
     }
 }
