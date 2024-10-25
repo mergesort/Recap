@@ -27,8 +27,7 @@ public struct RecapScreen<LeadingView: View, TrailingView: View>: View {
     @Environment(\.recapScreenSelectedPageIndicatorColor) private var selectedPageIndicatorColor
     @Environment(\.recapScreenDeselectedPageIndicatorColor) private var deselectedPageIndicatorColor
     @Environment(\.recapScreenDismissButtonStyle) private var dismissButtonStyle
-    @Environment(\.recapScreenDismissButtonTitle) private var dismissButtonCustomTitle
-    @Environment(\.recapScreenDismissButtonStringTitle) private var dismissButtonCustomStringTitle
+    @Environment(\.recapScreenDismissButtonTitle) private var dismissButtonTitle
     @Environment(\.recapScreenDismissAction) private var dismissAction
 
     @State private var originalSelectedPageIndicatorColor: UIColor?
@@ -71,7 +70,7 @@ public struct RecapScreen<LeadingView: View, TrailingView: View>: View {
                 HStack {
                     Spacer(minLength: 0.0)
 
-                    dismissButtonLabel
+                    Text(dismissButtonTitle)
                         .font(.system(.title3, weight: .bold))
                         .padding(8.0)
                         .padding(.vertical, 4.0)
@@ -133,14 +132,6 @@ public extension RecapScreen where LeadingView == EmptyView, TrailingView == Emp
 private extension RecapScreen {
     var displayedReleases: [Release] {
         self.releases.reversed()
-    }
-
-    var dismissButtonLabel: Text {
-        if let dismissButtonCustomStringTitle {
-            Text(verbatim: dismissButtonCustomStringTitle)
-        } else {
-            Text(dismissButtonCustomTitle.key, tableName: dismissButtonCustomTitle.tableName, bundle: dismissButtonCustomTitle.bundle)
-        }
     }
 
     var derivedBackgroundStyle: AnyShapeStyle {

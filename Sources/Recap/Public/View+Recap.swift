@@ -34,13 +34,8 @@ public extension View {
     }
 
     /// Configures a custom localized title for the `RecapScreen` dismiss button.
-    func recapScreenDismissButtonTitle(_ titleKey: LocalizedStringKey, in bundle: Bundle = .main, tableName: String? = nil) -> some View {
-        self.environment(\.recapScreenDismissButtonTitle, RecapLocalizedStringKey(key: titleKey, bundle: bundle, tableName: tableName))
-    }
-
-    /// Configures a custom, non-localized title for the `RecapScreen` dismiss button.
-    func recapScreenDismissButtonTitle(_ title: String) -> some View {
-        self.environment(\.recapScreenDismissButtonStringTitle, title)
+    func recapScreenDismissButtonTitle(_ title: LocalizedStringResource) -> some View {
+        self.environment(\.recapScreenDismissButtonTitle, title)
     }
 
     /// Configures an `IconFillMode` for the icons displayed on the `RecapScreen`.
@@ -137,26 +132,16 @@ internal extension EnvironmentValues {
 
     // MARK: DismissButtonTitle
 
-    var recapScreenDismissButtonTitle: RecapLocalizedStringKey {
+    var recapScreenDismissButtonTitle: LocalizedStringResource {
         get { self[DismissButtonLocalizedKeyTitle.self] }
         set { self[DismissButtonLocalizedKeyTitle.self] = newValue }
     }
 
     private struct DismissButtonLocalizedKeyTitle: @preconcurrency EnvironmentKey {
-        @MainActor static let defaultValue: RecapLocalizedStringKey = RecapLocalizedStringKey(
-            key: "RECAP.SCREEN.DISMISS.BUTTON.TITLE",
-            bundle: .module,
-            tableName: nil
+        @MainActor static let defaultValue = LocalizedStringResource(
+            "RECAP.SCREEN.DISMISS.BUTTON.TITLE",
+            bundle: .atURL(Bundle.module.bundleURL)
         )
-    }
-
-    var recapScreenDismissButtonStringTitle: String? {
-        get { self[DismissButtonVerbatimStringTitle.self] }
-        set { self[DismissButtonVerbatimStringTitle.self] = newValue }
-    }
-
-    private struct DismissButtonVerbatimStringTitle: EnvironmentKey {
-        static let defaultValue: String? = nil
     }
 
     // MARK: DismissAction
