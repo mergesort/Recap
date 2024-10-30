@@ -33,7 +33,7 @@ public extension View {
         )
     }
 
-    /// Configures a custom localized title for the `RecapScreen` dismiss button.
+    /// Configures a custom title for the `RecapScreen` dismiss button.
     func recapScreenDismissButtonTitle(_ title: LocalizedStringResource) -> some View {
         self.environment(\.recapScreenDismissButtonTitle, title)
     }

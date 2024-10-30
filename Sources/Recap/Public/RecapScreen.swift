@@ -70,7 +70,7 @@ public struct RecapScreen<LeadingView: View, TrailingView: View>: View {
                 HStack {
                     Spacer(minLength: 0.0)
 
-                    Text(dismissButtonTitle)
+                    Text(self.dismissButtonTitle)
                         .font(.system(.title3, weight: .bold))
                         .padding(8.0)
                         .padding(.vertical, 4.0)
