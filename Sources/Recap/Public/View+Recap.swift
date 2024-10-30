@@ -33,6 +33,11 @@ public extension View {
         )
     }
 
+    /// Configures a custom localized title for the `RecapScreen` dismiss button.
+    func recapScreenDismissButtonTitle(_ title: LocalizedStringResource) -> some View {
+        self.environment(\.recapScreenDismissButtonTitle, title)
+    }
+
     /// Configures an `IconFillMode` for the icons displayed on the `RecapScreen`.
     func recapScreenIconFillMode(_ style: IconFillMode) -> some View {
         self.environment(\.recapScreenIconFillMode, style)
@@ -122,6 +127,20 @@ internal extension EnvironmentValues {
         static let defaultValue = RecapScreenDismissButtonStyle(
             backgroundStyle: AnyShapeStyle(Color.blue),
             foregroundStyle: AnyShapeStyle(Color.white)
+        )
+    }
+
+    // MARK: DismissButtonTitle
+
+    var recapScreenDismissButtonTitle: LocalizedStringResource {
+        get { self[DismissButtonLocalizedKeyTitle.self] }
+        set { self[DismissButtonLocalizedKeyTitle.self] = newValue }
+    }
+
+    private struct DismissButtonLocalizedKeyTitle: @preconcurrency EnvironmentKey {
+        @MainActor static let defaultValue = LocalizedStringResource(
+            "RECAP.SCREEN.DISMISS.BUTTON.TITLE",
+            bundle: .atURL(Bundle.module.bundleURL)
         )
     }
 

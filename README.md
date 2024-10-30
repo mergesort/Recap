@@ -106,6 +106,7 @@ func recapScreenStartIndex(_ startIndex: RecapScreenStartIndex) -> some View
 func recapScreenTitleStyle(_ style: some ShapeStyle) -> some View
 func recapScreenDismissButtonStyle(_ style: some ShapeStyle) -> some View
 func recapScreenDismissButtonStyle(_ backgroundStyle: some ShapeStyle, _ foregroundStyle: some ShapeStyle) -> some View
+func recapScreenDismissButtonTitle(_ title: LocalizedStringResource) -> some View
 func recapScreenIconFillMode(_ style: IconFillMode) -> some View
 func recapScreenIconAlignment(_ alignment: VerticalAlignment) -> some View
 func recapScreenPageIndicatorColors(selected: Color, deselected: Color) -> some View

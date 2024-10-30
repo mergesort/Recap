@@ -27,6 +27,7 @@ public struct RecapScreen<LeadingView: View, TrailingView: View>: View {
     @Environment(\.recapScreenSelectedPageIndicatorColor) private var selectedPageIndicatorColor
     @Environment(\.recapScreenDeselectedPageIndicatorColor) private var deselectedPageIndicatorColor
     @Environment(\.recapScreenDismissButtonStyle) private var dismissButtonStyle
+    @Environment(\.recapScreenDismissButtonTitle) private var dismissButtonTitle
     @Environment(\.recapScreenDismissAction) private var dismissAction
 
     @State private var originalSelectedPageIndicatorColor: UIColor?
@@ -69,7 +70,7 @@ public struct RecapScreen<LeadingView: View, TrailingView: View>: View {
                 HStack {
                     Spacer(minLength: 0.0)
 
-                    Text("RECAP.SCREEN.DISMISS.BUTTON.TITLE", bundle: .module)
+                    Text(dismissButtonTitle)
                         .font(.system(.title3, weight: .bold))
                         .padding(8.0)
                         .padding(.vertical, 4.0)
