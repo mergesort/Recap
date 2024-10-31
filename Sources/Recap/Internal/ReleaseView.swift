@@ -38,11 +38,10 @@ struct ReleaseView: View {
 
 fileprivate extension ScrollView {
     func withSizedBasedBounceBehaviorIfAvailable() -> some View {
-        guard #available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *) else {
-            return self
+        if #available(iOS 16.4, macCatalyst 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, *) {
+            return self.scrollBounceBehavior(.basedOnSize)
         }
 
         return self
-            .scrollBounceBehavior(.basedOnSize)
     }
 }
