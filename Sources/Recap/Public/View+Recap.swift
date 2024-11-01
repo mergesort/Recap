@@ -113,7 +113,7 @@ internal extension EnvironmentValues {
     }
 
     private struct TitleStyleKey: EnvironmentKey {
-        static let defaultValue = AnyShapeStyle(Color.black)
+        static let defaultValue = AnyShapeStyle(ForegroundStyle.foreground)
     }
 
     // MARK: DismissButtonStyle
@@ -163,7 +163,7 @@ internal extension EnvironmentValues {
     }
 
     private struct SelectedPageIndicatorColorKey: EnvironmentKey {
-        static let defaultValue = Color.black
+        static let defaultValue = Color.primary
     }
 
     // MARK: DeselectedPageIndicatorColor
