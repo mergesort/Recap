@@ -7,6 +7,7 @@ extension Color {
             .lowercased()
 
         switch sanitizedColorName {
+        case "accent": self = .accentColor
         case "black": self = .black
         case "blue": self = .blue
         case "brown": self = .brown
@@ -17,7 +18,9 @@ extension Color {
         case "mint": self = .mint
         case "orange": self = .orange
         case "pink": self = .pink
+        case "primary": self = .primary
         case "purple": self = .purple
+        case "secondary": self = .secondary
         case "red": self = .red
         case "teal": self = .teal
         case "white": self = .white
