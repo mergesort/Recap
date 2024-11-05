@@ -5,8 +5,8 @@ import Foundation
 /// - The `string` will be used as the unique identifier for a `Release`, to only display a release once.
 /// - The `change` property is useful metadata, for example when creating logic to only present a RecapScreen when there is a major or minor change.
 public struct AppVersion: Equatable {
-    let string: String
-    let change: Change
+    public let string: String
+    public let change: Change
 
     public init(string: String, change: Change) {
         self.string = string
